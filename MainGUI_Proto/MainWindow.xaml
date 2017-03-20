@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MainGUI_Proto"
         mc:Ignorable="d"
         Title="Testablauf" Height="500" Width="800">
+
     <Grid Height="300" Width="600" VerticalAlignment="Center">
 
         <Grid.ColumnDefinitions>
@@ -16,12 +17,12 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-
-        <Button Content="Erstes Programm starten" Name="FirstProgrammButton" Click="FirstProgrammButton_Click" Height="20" Width="200" Grid.ColumnSpan="2"/>
-        <Label Content="Programm wird ausgeführt" Grid.Row="1" Grid.Column="0"/>
-        <Label Content="{Binding Path=IsRunning}" Grid.Row="1" Grid.Column="1"/>
-
+        <Button Content=">" HorizontalAlignment="Right" Width="50" Height="30" Grid.Column="1" Name="NextStepButton" Click="NextStepButton_Click"/>
+        <Button Content="{Binding Path=Filename}" Name="FirstProgrammButton" Click="FirstProgrammButton_Click" Height="20" Width="200" Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="{Binding Path=IsNotRunning}"/>
+        <Label Content="{Binding Path=IsRunningString}" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+        <Label Content="{Binding Path=TestResult}" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
 
     </Grid>
 </Window>

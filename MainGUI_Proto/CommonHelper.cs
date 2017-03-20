@@ -14,10 +14,11 @@ namespace MainGUI_Proto {
         }
 
         private string fileName;
-        
-      
 
+       
         private ProcessStartInfo stinfo = new ProcessStartInfo();
+
+        
 
         public bool openTargetFile(EventHandler onFileClosed) {
             bool loadedSuccessfully = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace MainGUI_Proto {
         
 
         TestClass test1 = new TestClass("ErsterTestschritt");
+        TestClass test2 = new TestClass("ZweiterTestschritt");
 
         TestClass currentTest;
         
@@ -35,5 +37,15 @@ namespace MainGUI_Proto {
         private void FirstProgrammButton_Click(object sender, RoutedEventArgs e) {
             test1.InitTest();
         }
+
+        private void NextStepButton_Click(object sender, RoutedEventArgs e) {
+            //MessageBox.Show("Nächster Schritt");
+            initStep2();
+        }
+
+        private void initStep2() {
+            this.DataContext = test2;
+        }
     }
+   
 }

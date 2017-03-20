@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-
+using System.Diagnostics;
 
 namespace MainGUI_Proto {
     internal class TestClass : INotifyPropertyChanged {
@@ -10,7 +10,6 @@ namespace MainGUI_Proto {
 
         public TestClass(string testName) {
             this.Filename = testName;
-
         }
 
         private string filename;
@@ -24,14 +23,57 @@ namespace MainGUI_Proto {
                 if (value != this.isRunning) {
                     this.isRunning = value;
                     OnPropertyChanged("IsRunning");
+                    OnPropertyChanged("IsRunningString");
+                    OnPropertyChanged("IsNotRunning");
                 }
             }
         }
+
+        //Workaround für enabled und disablen des Test-Starten Buttons im View
+        public bool IsNotRunning { get => !(this.IsRunning);}
+
+        private string isRunningString;
+        public string IsRunningString {
+            get => this.isRunning ? this.isRunningString = "Test läuft" : "Test hier starten";
+        }
+
         
 
         private string testResult;
-        public string TestResult { get => testResult; set => testResult = value; }
+        public string TestResult {
+            get {
+                if(this.TestExitCode != null) {
+                    if(this.TestExitCode == 0) {
+                         return "Test erfolgreich abgeschlossen";
+                    }
+                    else {
+                        return "Test fehlerhaft abgeschlossen";
+                    }
+                }
+                else {
+                    return string.Empty;
+                }
+            }
+            set => testResult = value;
+        }
+        
 
+        private int? testExitCode = null;  //Nullable int Typ
+        public int? TestExitCode {
+            get => testExitCode;
+            set {
+                if (value != this.TestExitCode) {
+                    this.testExitCode = value;
+                    OnPropertyChanged("TestExitCode");
+                    OnPropertyChanged("TestResult");
+                }
+            }
+        }
+       
+
+        private bool hasFinished;
+        public bool HasFinished { get => hasFinished; set => hasFinished = value; }
+       
 
         private CommonHelper helper;
 
@@ -42,7 +84,11 @@ namespace MainGUI_Proto {
 
         private void ProcessExited(object sender, System.EventArgs e) {
             //System.Windows.MessageBox.Show("Process wurde geschlossen");
+            var p = sender as Process;
+            //System.Windows.MessageBox.Show("Process wurde geschlossen mit Exit Code" + p.ExitCode);
             this.IsRunning = false;
+            this.HasFinished = true;
+            this.TestExitCode = p.ExitCode;
         }
 
         //------------------------Data-Binding Notifier-----------------------------------------
