@@ -21,10 +21,12 @@ namespace MainGUI_Proto {
     public partial class MainWindow : Window {
         
 
-        TestClass test1 = new TestClass("ErsterTestschritt");
-        TestClass test2 = new TestClass("ZweiterTestschritt");
+        TestClass test1 = new TestClass("ErsterTestschritt", 1);
+        TestClass test2 = new TestClass("ZweiterTestschritt", 2);
 
         TestClass currentTest;
+
+        int currentStep = 1;
         
         public MainWindow()
         {
@@ -45,6 +47,8 @@ namespace MainGUI_Proto {
 
         private void initStep2() {
             this.DataContext = test2;
+            this.currentTest = test2;
+            this.currentStep = 2;
         }
     }
    

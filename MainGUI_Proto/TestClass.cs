@@ -8,13 +8,26 @@ namespace MainGUI_Proto {
 
         }
 
-        public TestClass(string testName) {
+        public TestClass(string testName, int teststep) {
             this.Filename = testName;
+            this.testStep = teststep;
         }
 
         private string filename;
         public string Filename { get => filename; set => filename = value; }
-       
+
+        private int testStep;
+        public int TestStep {
+            get => testStep;
+            set {
+                this.testStep = value;
+                OnPropertyChanged("TestStep");
+                OnPropertyChanged("BackButtonVisibility");
+            }
+        }
+        
+        public string BackButtonVisibility { get => this.testStep > 1 ? "Visible" : "Hidden"; }
+
 
         private bool isRunning;
         public bool IsRunning {
@@ -73,7 +86,7 @@ namespace MainGUI_Proto {
 
         private bool hasFinished;
         public bool HasFinished { get => hasFinished; set => hasFinished = value; }
-       
+        
 
         private CommonHelper helper;
 
